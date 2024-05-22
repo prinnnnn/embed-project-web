@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <script src= "script_sensor_value.js"></script>
+</head>
+<body style="background-color: antiquewhite;">
+
+  <div class="div", style="background-image: linear-gradient(#008DDA, #F7EEDD);">
+    <div class="div-2">Water Monitoring App</div>
+    <div class="div-3">
+      <div class="div-4">
+        <div class="column">
+          <div class="div-5">
+            <div class="div-6">Water Level Sensor</div>
+            <div class="div-7", id = "water-level-val">Current Value: 60%</div>
+            <div class="div-8">Level:</div>
+            <div class="progress-container-water">
+              <div class="progress-bar-water", id = "water-level-bar", style="width: 60%;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="column-2">
+          <div class="div-9">
+            <div class="div-10">DHT Sensor</div>
+            <div class="div-11", id = "humid-val">
+              Current Humidity: 75%
+              <br />
+            </div>
+            <div class="div-12">Humidity:</div>
+            <div class="progress-container-humid">
+              <div class="progress-bar-humid", id = "humid-bar", style="width: 75%;"></div>
+            </div>
+            <div class="div-24", id="temp-val">
+              Current Temperature: 37°C
+              <br />
+            </div>
+            <div class="div-25">Temperature:</div>
+            <div class="progress-container-temper">
+              <div class="progress-bar-temper", id = "temp-bar", style="width: 37%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="div-13">
+      <div class="div-14">
+        <div class="column">
+          <div class="div-15">
+            <div class="div-16">Conditions for Pump Activation</div>
+            <div class="div-17">
+              Water Level Threshold: 50%
+              <br/><br/>
+              Humidity Threshold: 80%
+            </div>
+            <div class="div-18">status:</div>
+            <div class="div-19", id = "condition">Conditions Met</div>
+          </div>
+        </div>
+        <div class="column-3">
+          <div class="div-20">
+            <div class="div-21">Pump Activation Control</div>
+            <div class="div-22", id = "pump-status">Pump Status: Inactive</div>
+            <div class="div-23">
+              <button class="activate-btn", id = "activate-btn", role="button", onclick = "togglePump()">Activate Pump</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</body>
+</html>
