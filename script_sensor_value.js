@@ -1,6 +1,6 @@
 // value from humid and water level sensor
 const backendIPAddress = "127.0.0.1:3000"
-let humidity, waterLevel, temperature, stateBtn = false;
+let humidity, waterLevel, temperature, stateBtn = false, fetchState;
 
 function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -13,15 +13,16 @@ const getHumidity = async () => {
         credentials: "include"
     };
 
-    humidity = getRandomIntInclusive(0, 100)
+    // humidity = getRandomIntInclusive(0, 100)
 
-    // await fetch(`http://${backendIPAddress}/values/humid`, options)
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //         console.log("Humidtiy: ", data)
-    //         humidity = data["humid"];
-    //     })
-    //     .catch((err) => console.log(err))
+    await fetch(`http://${backendIPAddress}/values/humid`, options)
+        .then((response) => response.json())
+        .then((data) => {
+            humidity = data["data"];
+        })
+        .catch((err) => console.log(err))
+        
+    console.log("Humidtiy: ", humidity)
 
 };
 
@@ -32,15 +33,17 @@ const getwaterLevel = async () => {
         credentials: "include"
     };
 
-    waterLevel = getRandomIntInclusive(0, 100)
+    // waterLevel = getRandomIntInclusive(0, 100)
 
-    // await fetch(`http://${backendIPAddress}/values/water_level`, options)
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //         console.log("Water Level: ", data)
-    //         waterLevel = data["water_level"];
-    //     })
-    //     .catch((err) => console.log(err))
+    await fetch(`http://${backendIPAddress}/values/water_level`, options)
+        .then((response) => response.json())
+        .then((data) => {
+            // console.log("Water Level: ", data)
+            waterLevel = data["data"];
+        })
+        .catch((err) => console.log(err))
+
+    console.log("Water Level: ", waterLevel)
 
 };
 
@@ -51,15 +54,17 @@ const getTemperature = async () => {
         credentials: "include"
     };
 
-    temperature = getRandomIntInclusive(0, 100)
+    // temperature = getRandomIntInclusive(0, 100)
 
-    // await fetch(`http://${backendIPAddress}/values/water_level`, options)
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //         console.log("Water Level: ", data)
-    //         waterLevel = data["water_level"];
-    //     })
-    //     .catch((err) => console.log(err))
+    await fetch(`http://${backendIPAddress}/values/temperature`, options)
+        .then((response) => response.json())
+        .then((data) => {
+            // console.log("Water Level: ", data)
+            temperature = data["data"];
+        })
+        .catch((err) => console.log(err))
+
+    console.log("Temperature: ", temperature)
 
 };
 
@@ -128,6 +133,26 @@ const togglePump = () => {
 // #7: Fetch Pump status from Backend
 const getPumpStatus = async () => {
 
+    const options = {
+        method: "GET",
+        credentials: "include"
+    };
+
+    // temperature = getRandomIntInclusive(0, 100)
+    await fetch(`http://${backendIPAddress}/values/pump_state`, options)
+        .then((response) => response.json())
+        .then((data) => {
+            
+            if (data["data"] == "Inactive") {
+                fetchState = false
+            } else {
+                fetchState = true
+            }
+            
+            console.log("Fetched Pump Status: ", fetchState)
+        })
+        .catch((err) => console.log(err))
+
 }
 
 const updateAllStatus = () => {
@@ -141,6 +166,10 @@ const updateAllStatus = () => {
         cond.textContent = "Conditions Satisfied"
     } else {
         cond.textContent = "Conditions Unsatisfied"
+    }
+
+    if (fetchState != stateBtn) {
+        togglePump()
     }
 }
   
